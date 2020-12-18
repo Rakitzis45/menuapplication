@@ -5,8 +5,19 @@ Rails.application.routes.draw do
   resources :cuisines
   resources :reviews
   resources :restaurants
-  resources :users
+  resources :users do
+    resources :restaurants
+  end
 
-  resource :sessions, only: [:new, :create, :destroy]
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get '/search', to: 'static#search'
+  root "static#search"
+
+  get '/login', to: 'sessions#login'
+  post '/login', to: 'sessions#create'
+  get '/success', to: 'sessions#success'
+  get 'auth/:provider/callback', to: 'sessions#googleAuth'
+
+  get '/logout', to: 'sessions#destroy'
+
+
 end

@@ -1,0 +1,11 @@
+<h2>Login</h2>
+    <%= form_with model:@user do |f| %>
+        <%= f.label :email %>
+        <%= f.text_field :email%>
+        <br>
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+        <%= f.submit "Login" %>
+    <% end%>
+
+<%= link_to "Login via Google Authentication", '/auth/google_oauth2' %>

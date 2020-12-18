@@ -1,0 +1,22 @@
+<h1>New Restaurant</h1>
+<%= form_with model: @restaurant do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name  %>
+    <br>
+    <%= f.label :phone_number %>
+    <%= f.text_field :phone_number %>
+    <br>
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+    <br>
+    <%= f.label :state %>
+    <%= f.text_field :state %>
+    <br>
+    <%= f.label :zipcode %>
+    <%= f.number_field :zipcode %>
+    <br>
+    <%= f.label :cuisine_ids, value:"Cuisine(s)" %>
+    <%= f.collection_check_boxes :cuisine_ids, Cuisine.order(:name), :id, :name %>
+    <br>
+    <%= f.submit %>
+<% end%>

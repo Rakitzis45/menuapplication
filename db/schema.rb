@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_173112) do
+ActiveRecord::Schema.define(version: 2020_12_18_174729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,13 +36,20 @@ ActiveRecord::Schema.define(version: 2020_12_16_173112) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "restaurantcuisines", force: :cascade do |t|
+    t.integer "restaurant_id"
+    t.integer "cuisine_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "restaurants", force: :cascade do |t|
     t.string "name"
     t.string "address"
     t.string "state"
     t.integer "zipcode"
-    t.integer "cuisine_id"
     t.integer "user_id"
+    t.string "phone_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -61,9 +68,9 @@ ActiveRecord::Schema.define(version: 2020_12_16_173112) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
+    t.boolean "admin"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "admin", default: false
   end
 
 end

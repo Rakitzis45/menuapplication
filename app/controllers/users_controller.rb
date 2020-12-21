@@ -4,26 +4,53 @@ class UsersController < ApplicationController
     end
 
     def create
-        if user_params[:password] == user_params[:password_confirmation]
-            @user = User.create(user_params)
-            if @user.id
-                session[:user_id] = @user.id
-                redirect_to search_path
-            else
-                redirect_to new_user_path
-            end
+        @user = User.new(user_params)
+        if @user.save
+            session[:user_id] = @user.id
+            redirect_to search_path
         else
-            redirect_to new_user_path
+            render 'users/new'
         end
-        
     end
 
     def edit
+        find_user
+    end
+    
+    def update
+        find_user
+        if user_params[:password].blank? && user_params[:password].blank?
+            params[:user].delete("password")
+            params[:user].delete("password_confirmation")
+            if @user.update(user_params)
+                redirect_to search_path
+            else
+                render 'users/edit'
+            end
+        else
+            if @user.update(user_params)
+                redirect_to search_path
+            else
+                render 'users/edit'
+            end
+        end
+    end
+
+    def myrestaurants
+        find_user
+    end
+
+    def destroy
+        find_user
     end
 
     private
     def user_params
         params.require(:user).permit(:name, :email, :admin, :password, :password_confirmation)
+    end
+
+    def find_user
+        @user = User.find_by(id:current_user)
     end
 
 

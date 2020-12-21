@@ -1,5 +1,5 @@
-<h1>New Restaurant</h1>
-<%= form_with model: @restaurant do |f| %>
+
+<%= form_with model: @restaurant, local: true do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name  %>
     <br>
@@ -8,6 +8,9 @@
     <br>
     <%= f.label :address %>
     <%= f.text_field :address %>
+    <br>
+    <%= f.label :city %>
+    <%= f.text_field :city %>
     <br>
     <%= f.label :state %>
     <%= f.text_field :state %>

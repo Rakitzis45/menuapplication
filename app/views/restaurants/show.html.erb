@@ -1,0 +1,36 @@
+<h1><%= @restaurant.name %></h1>
+<p>
+    Phone Number: <%=@restaurant.phone_number  %><br>
+    Address: <%= @restaurant.address %>, <%= @restaurant.city %>, <%= @restaurant.state.upcase %> <%= @restaurant.zipcode %><br>
+    Cuisine(s):<% @restaurant.cuisines.each do |c|%>
+       <%= c.name %>
+    <% end %>
+    <br>
+    <%= link_to "View Menu", restaurant_menu_path(@restaurant)%>
+</p>
+<% if @user%>
+    <% if @user.id != @restaurant.user_id %>
+        Write a Review
+        <%= render 'reviewform' %>
+    <% end%>
+
+    <% if @user.id == @restaurant.user.id %>
+        <%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant)  %>
+    <% end %>
+    <% end%>
+    <% if @reviews%>
+        <h3>Reviews</h3>
+        <%  @reviews.each do |p|%>
+            <%= p.user.name %><br>
+            Food Rating: <%= p.food_rating %><br>
+            Service Rating: <%= p.service_rating %><br>
+            <%= p.post %><br>
+            <%= p.created_at %>
+            <br>
+            <% if p.user.id == session[:user_id]%>
+                <%= link_to "Delete review",  review_path(p), method: :delete%>
+            <% end%>
+            <br><br>
+        <% end%>
+<% end %>
+    

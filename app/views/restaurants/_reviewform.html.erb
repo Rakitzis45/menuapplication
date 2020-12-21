@@ -1,0 +1,13 @@
+<%= form_with model:@review do |f| %>
+    <%= f.label :food_rating %>
+    <%= f.range_field :food_rating, in:0..5 %>
+    <br>
+    <%= f.label :service_rating %>
+    <%= f.range_field :service_rating, in:0..5 %>
+    <br>
+    <%= f.label :post %>
+    <%= f.text_area :post %>
+    <br>
+    <%= f.hidden_field :restaurant_id, value: @restaurant.id  %>
+    <%= f.submit %>
+<% end%>

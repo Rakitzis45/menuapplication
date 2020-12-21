@@ -1,0 +1,22 @@
+<h1><%= @restaurant.name %></h1>
+    <% if @user && @user.id == @restaurant.user_id   %>
+        <%= link_to "Add Category", new_restaurant_categories_path  %>
+        <br>  
+    <% end%>
+<% @restaurant.categories.each do |c| %>
+    <% if @user && @user.admin == true && @user.id == @restaurant.user_id%>
+        
+        <h2><%= link_to c.name.capitalize, edit_restaurant_categories_path(@restaurant, c) %></h2>
+        <%= link_to "Add Item", new_category_item_path(c) %><br>
+    <% else%>
+        <h2><%= c.name.capitalize %></h2>
+    <% end%>
+    <% c.items.each do |item|%>
+        <% if @user && @user.admin == true && @user.id == @restaurant.user_id%>
+            <li><%= link_to item.name, edit_category_item_path(c, item) %>
+        <% else%>
+          <li><%= item.name %>
+          <% end%>  
+        : $<%= item.price %></li><br>
+    <% end%>
+<% end%>

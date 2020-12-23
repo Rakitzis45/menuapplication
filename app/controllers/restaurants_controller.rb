@@ -15,7 +15,7 @@ class RestaurantsController < ApplicationController
         find_restaurant
         find_user
         @review = Review.new
-        @reviews = @restaurant.reviews.all
+        get_reviews
     end
 
     def new

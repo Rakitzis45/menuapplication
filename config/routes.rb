@@ -2,20 +2,18 @@ Rails.application.routes.draw do
   
   resources :items
   resources :categories do 
-    resources :items 
+    resources :items, except: [:index, :show]
   end
-  resources :cuisines
-  resources :reviews
+  #resources :cuisines
+  resources :reviews, only: [:create, :destroy]
   resources :restaurants do 
     get '/menu', to: 'restaurants#menu'
-    resource :categories
+    resource :categories, except: [:index, :show]
   end
-  resources :users do
+  resources :users, except: [:index, :show] do
     resources :restaurants
     get '/myrestaurants', to:'users#myrestaurants'
   end
-
-  
 
   get '/search', to: 'static#search'
   root "static#search"

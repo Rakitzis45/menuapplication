@@ -17,6 +17,6 @@
         <% else%>
           <li><%= item.name %>
           <% end%>  
-        : $<%= item.price %></li><br>
+        : $<%= sprintf "%.2f", item.price %></li><br>
     <% end%>
 <% end%>

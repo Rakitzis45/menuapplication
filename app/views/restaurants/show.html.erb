@@ -1,7 +1,7 @@
 <h1><%= @restaurant.name %></h1>
 <p>
     Phone Number: <%=@restaurant.phone_number  %><br>
-    Address: <%= @restaurant.address %>, <%= @restaurant.city %>, <%= @restaurant.state.upcase %> <%= @restaurant.zipcode %><br>
+    Address: <%= @restaurant.address %>, <%= @restaurant.city.capitalize %>, <%= @restaurant.state.upcase %> <%= @restaurant.zipcode %><br>
     Cuisine(s):<% @restaurant.cuisines.each do |c|%>
        <%= c.name %>
     <% end %>
@@ -11,7 +11,7 @@
 <% if @user%>
     <% if @user.id != @restaurant.user_id %>
         Write a Review
-        <%= render 'reviewform' %>
+        <%= render 'restaurants/reviewform' %>
     <% end%>
 
     <% if @user.id == @restaurant.user.id %>
@@ -25,7 +25,7 @@
             Food Rating: <%= p.food_rating %><br>
             Service Rating: <%= p.service_rating %><br>
             <%= p.post %><br>
-            <%= p.created_at %>
+            <%= p.created_at.strftime('%B %-d, %Y')%>
             <br>
             <% if p.user.id == session[:user_id]%>
                 <%= link_to "Delete review",  review_path(p), method: :delete%>

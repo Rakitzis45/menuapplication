@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
             session[:user_id] = @user.id
             redirect_to search_path
         else
-           redirect_to login_path 
+           render 'sessions/login'
         end
     end
 

@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
 
     def new
         @category = Category.new
-        @restaurant = Restaurant.find_by(id:params[:restaurant_id])
+        find_restaurant
         session[:last_restaurant] = @restaurant.id
     end
 
@@ -21,13 +21,16 @@ class CategoriesController < ApplicationController
 
     def edit
         @category = Category.find_by(id:params[:format])
-        @restaurant = Restaurant.find_by(id:params[:restaurant_id])
+        find_restaurant
+        session[:last_restaurant] = @restaurant.id
     end
 
     def update
-        @category = Category.find_by(id:params[:id])
-        @restaurant = Restaurant.find_by(id:categories_params[:restaurant_id])
-        if @category.update(categories_params)
+        find_category
+        @restaurant = Restaurant.find_by(id:session[:last_restaurant])
+        if @category.update(categories_params).tap do |f| 
+            @category.restaurant_id = session[:last_restaurant]
+            end
             redirect_to restaurant_menu_path(@restaurant)
         else
             render 'categories/edit'
@@ -48,5 +51,9 @@ class CategoriesController < ApplicationController
 
     def find_category
         @category = Category.find_by(id:params[:id])
+    end
+
+    def find_restaurant
+        @restaurant = Restaurant.find_by(id:params[:restaurant_id])
     end
 end

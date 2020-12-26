@@ -1,5 +1,7 @@
 class ReviewsController < ApplicationController
-    
+
+    before_action :require_login, only: [:create, :destroy]
+
     def create
         @review = Review.new(review_params) do |f|
             f.user_id = current_user

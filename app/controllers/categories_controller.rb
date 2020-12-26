@@ -22,7 +22,11 @@ class CategoriesController < ApplicationController
     def edit
         @category = Category.find_by(id:params[:format])
         find_restaurant
-        session[:last_restaurant] = @restaurant.id
+        if @category.restaurant.user_id == session[:user_id]
+            session[:last_restaurant] = @restaurant.id
+        else
+            redirect_to user_myrestaurants_path(session[:user_id])
+        end
     end
 
     def update

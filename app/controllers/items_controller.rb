@@ -20,7 +20,11 @@ class ItemsController < ApplicationController
     def edit
         find_item
         @category = Category.find_by(id:params[:category_id])
-        session[:last_category] = @category.id
+        if @category.restaurant.user_id == session[:user_id]
+            session[:last_category] = @category.id
+        else
+            redirect_to user_myrestaurants_path(session[:user_id])
+        end
     end
 
     def update

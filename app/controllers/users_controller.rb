@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     end
 
     def edit
+        require_login
         find_user
     end
     

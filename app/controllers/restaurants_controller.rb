@@ -15,6 +15,7 @@ class RestaurantsController < ApplicationController
         find_restaurant
         find_user
         @review = Review.new
+        session[:last_restaurant] = @restaurant.id
         get_reviews
     end
 
@@ -73,7 +74,6 @@ class RestaurantsController < ApplicationController
             redirect_to search_path
         end
 
-        
         @restaurants = Restaurant.where(state: params[:search] )
         if @restaurants.empty?
             @restaurants = Restaurant.where(zipcode: params[:search])

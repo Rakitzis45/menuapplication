@@ -1,6 +1,6 @@
 class RestaurantsController < ApplicationController
 
-    before_action :require_login, only: [:new, :create, :edit, :update]
+    before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
 
     def index
         search
@@ -72,17 +72,23 @@ class RestaurantsController < ApplicationController
     def search
         if params[:search].empty?
             redirect_to search_path
-        end
+        else
+            if params[:search].length == 2
+                @restaurants = Restaurant.where(state: params[:search] )
+            elsif params[:search].length == 5 && Integer(params[:search])
+                @restaurants = Restaurant.where(zipcode: params[:search])
+            else 
+                cuisine = Cuisine.find_by(name: params[:search].capitalize)
+                if cuisine != nil
+                    @restaurants = cuisine.restaurants
+                else
+                    @restaurants = nil
+                end
+            end
 
-        @restaurants = Restaurant.where(state: params[:search] )
-        if @restaurants.empty?
-            @restaurants = Restaurant.where(zipcode: params[:search])
-        end
-        if @restaurants.empty?
-            @restaurants = Restaurant.where(cuisine: params[:search])
-        end
 
-        @restaurnts = Restaurant.search_zipcode(params[:search])
+
+        end
     end
 
     def restaurant_params

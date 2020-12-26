@@ -1,6 +1,14 @@
 <h1> Restaurants</h1>
 <ol>
-    <% @restaurants.each do |r|%>
-    <li><%= link_to r.name, restaurant_path(r)  %></li><br>
-    <% end %>
+    <% if @restaurants == nil || @restaurants.empty?%>
+        <p>No Results Found
+        <br>
+        <%= link_to "New Search",search_path %>
+        </p>
+        
+    <% else%>
+        <% @restaurants.each do |r|%>
+        <li><%= link_to r.name, restaurant_path(r)  %></li><br>
+        <% end %>
+    <% end%>
 </ul>

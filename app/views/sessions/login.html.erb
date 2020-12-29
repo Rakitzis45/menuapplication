@@ -1,5 +1,8 @@
 <h2>Login</h2>
-    <%= form_with model:@user do |f| %>
+    <%= form_with model:@user, local: true do |f|  %>
+        <% if session[:error_message]%>
+            <li id="login_error"><%= session[:error_message] %><br></li>
+        <% end%>
         <%= f.label :email %>
         <%= f.text_field :email%>
         <br>

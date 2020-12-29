@@ -1,14 +1,23 @@
 class SessionsController < ApplicationController
     def login
+
     end
 
     def create
         @user = User.find_by(email: params[:email])
-        if @user.authenticate(params[:password])
-            session[:user_id] = @user.id
-            redirect_to search_path
+        if @user
+            if @user.authenticate(params[:password])
+                session[:user_id] = @user.id
+                session.delete :error_message
+                redirect_to search_path
+            else
+                session[:error_message] = "Login Failed"
+                redirect_to login_path
+            end
         else
-           render 'sessions/login'
+            byebug
+            session[:error_message] = "Login Failed"
+            render 'sessions/login'
         end
     end
 
@@ -19,7 +28,7 @@ class SessionsController < ApplicationController
     def googleAuth
         @user = User.find_or_create_from_omniauth(auth)
         session[:user_id] = @user.id 
-        redirect_to success_path
+        redirect_to search_path
     end
 
     def destroy
@@ -33,7 +42,4 @@ class SessionsController < ApplicationController
         request.env["omniauth.auth"]
     end
 
-    def user_params
-        params.require(:user).permit(:email, :password)
-    end
 end

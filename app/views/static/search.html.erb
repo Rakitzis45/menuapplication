@@ -1,4 +1,4 @@
-<h1>Search Page</h1>
+<h1>Search Restaurants</h1>
     <%= form_tag(restaurants_path, method: :get) do %>
         <%= text_field_tag(:search, params[:search]) %>
         <%= submit_tag ("Search by Cuisine, State, or Zipcode") %>

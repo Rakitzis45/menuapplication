@@ -14,4 +14,5 @@ class Restaurant < ApplicationRecord
     validates_length_of :state, is: 2
 
     scope :search_zipcode, -> (zipcode) {where("zipcode = ?", zipcode)}
+    scope :search_state, -> (state) {where("state = ?", state)}
 end

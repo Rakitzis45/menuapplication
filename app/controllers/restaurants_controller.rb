@@ -74,9 +74,13 @@ class RestaurantsController < ApplicationController
             redirect_to search_path
         else
             if params[:search].length == 2
-                @restaurants = Restaurant.where(state: params[:search] )
+                
+                @restaurants = Restaurant.search_state(params[:search])
+                #@restaurants = Restaurant.where(state: params[:search] )
             elsif params[:search].length == 5 && Integer(params[:search])
-                @restaurants = Restaurant.where(zipcode: params[:search])
+                byebug
+                @restaurants = Restaurant.search_zipcode(params[:search])
+                #@restaurants = Restaurant.where(zipcode: params[:search])
             else 
                 cuisine = Cuisine.find_by(name: params[:search].capitalize)
                 if cuisine != nil

@@ -13,7 +13,6 @@
         Write a Review
         <%= render 'restaurants/reviewform' %>
     <% end%>
-
     <% if @user.id == @restaurant.user.id %>
         <%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant)  %>
     <% end %>

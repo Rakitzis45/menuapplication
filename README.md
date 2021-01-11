@@ -1,24 +1,9 @@
-# README
+<h1>MenuApplication</h1>
+<p>The menu application is a rails web application that helps user find information about restaurants and 
+    leave reviews for restaurants. Users are able to create their own restaurants if they are restaurant owners. </p>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<h2>Installation</h2>
+<p>Install postgres and run ``` bundle install ``` in terminal.</p>
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+<h2>License</h2>
+The application is available as open source under the terms of the MIT License.

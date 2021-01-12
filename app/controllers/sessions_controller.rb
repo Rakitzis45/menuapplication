@@ -15,7 +15,6 @@ class SessionsController < ApplicationController
                 redirect_to login_path
             end
         else
-            byebug
             session[:error_message] = "Login Failed"
             render 'sessions/login'
         end

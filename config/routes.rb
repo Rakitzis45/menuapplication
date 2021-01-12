@@ -9,10 +9,12 @@ Rails.application.routes.draw do
   resources :restaurants do 
     get '/menu', to: 'restaurants#menu'
     resource :categories, except: [:index, :show]
+  
   end
-  resources :users, except: [:index, :show] do
+  resources :users, except: [:show] do
     resources :restaurants
     get '/myrestaurants', to:'users#myrestaurants'
+    get '/index', to: 'user_restaurants#index'
   end
 
   get '/search', to: 'static#search'

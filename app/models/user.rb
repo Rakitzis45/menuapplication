@@ -8,7 +8,7 @@ class User < ApplicationRecord
     validates_presence_of :name, :email
     validates_presence_of :password, on: :create
     validates_uniqueness_of :email
-    validates :password, length: { in: 6..40 }, on: :create
+    validates :password, length: { in: 6..40 }, :if => :password
     validates_confirmation_of :password, :message => "Passwords should match"
     
 
